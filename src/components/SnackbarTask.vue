@@ -1,16 +1,18 @@
 <template>
-    <v-snackbar top :color="tipo" dark v-model="snack" :timeout="800" @input="setNotificar(null)">
-        {{mensaje}}
+    <v-snackbar top :color="type" dark v-model="snack" :timeout="800" @input="setNotify(null)">
+        {{message}}
     </v-snackbar>
 </template>
 
 <script>
     import {mapMutations} from 'vuex'
-    let types = ['eliminar', 'editar', 'agregar']
+
+    let types = ['delete', 'update', 'add']
+
     export default {
         name: "SnackbarTask",
         props: {
-            notificar: {type: String, validator: value => types.includes(value)}
+            notify: {type: String, validator: value => types.includes(value)}
         },
         data(){
             return {
@@ -18,35 +20,35 @@
             }
         },
         watch: {
-          notificar(val){
+          notify(val){
               if(val){
                   this.snack= true
               }
           }
         },
         methods: {
-            ...mapMutations(['setNotificar'])
+            ...mapMutations(['setNotify'])
         },
         computed: {
-            tipo(){
-                switch (this.notificar) {
-                    case 'eliminar':
+            type(){
+                switch (this.notify) {
+                    case 'delete':
                         return 'error'
-                    case 'editar':
+                    case 'update':
                         return 'warning'
-                    case 'agregar':
+                    case 'add':
                         return 'success'
                     default:
                         return 'info'
                 }
             },
-            mensaje() {
-                switch (this.notificar) {
-                    case 'eliminar':
+            message() {
+                switch (this.notify) {
+                    case 'delete':
                         return 'Se elimino una tarea'
-                    case 'editar':
+                    case 'update':
                         return 'Se edito una tarea'
-                    case 'agregar':
+                    case 'add':
                         return 'Se agrego una tarea'
                     default:
                         return ''
@@ -65,19 +67,19 @@
         padding: 10px;
     }
 
-    .eliminar {
+    .delete {
         border: 1px solid grey;
         background-color: red;
         color: white;
     }
 
-    .editar {
+    .update {
         border: 1px solid grey;
         background-color: blue;
         color: white;
     }
 
-    .agregar {
+    .add {
         border: 1px solid grey;
         background-color: green;
         color: white;

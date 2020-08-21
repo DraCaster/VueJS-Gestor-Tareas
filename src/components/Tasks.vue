@@ -16,7 +16,7 @@
           >
           <v-card-subtitle>Ver, editar y eliminar las tareas</v-card-subtitle>
           <v-card-text>
-            <div v-if="cargando" class="cargando">
+            <div v-if="loading" class="cargando">
               <v-progress-circular
                 :size="40"
                 color="primary"
@@ -46,21 +46,21 @@
           <v-card-text>
             <v-chip class="ma-2" color="green" text-color="white">
               <v-avatar left class="green darken-4">
-                {{ obtenerTareasvigentes }}
+                {{ getCurrentTasks }}
               </v-avatar>
               Vigentes
             </v-chip>
 
             <v-chip class="ma-2" color="red" text-color="white">
               <v-avatar left class="red darken-4">
-                {{ contadorEliminadas }}
+                {{ tasksDeleted }}
               </v-avatar>
               Eliminadas
             </v-chip>
 
             <v-chip class="ma-2" color="indigo" text-color="white">
               <v-avatar left class="indigo darken-4">
-                {{ obtenerTareasTotales }}
+                {{ getTotalTasks }}
               </v-avatar>
               Totales
             </v-chip>
@@ -68,7 +68,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <SnackbarTask :notificar="notificar" />
+    <SnackbarTask :notify="notify" />
   </v-container>
 </template>
 
@@ -83,20 +83,20 @@ export default {
   name: "Tasks",
   components: { ShowTasks, NewTask, FilterTask, SnackbarTask },
   mounted() {
-    this.cargarTareas();
+    this.getTasks();
   },
   computed: {
-    ...mapState(["cargando", "tareas", "notificar", "contadorEliminadas"]), //this.cargando
-    obtenerTareasvigentes() {
-      return this.tareas.length;
+    ...mapState(["loading", "tasks", "notify", "tasksDeleted"]), //this.cargando
+    getCurrentTasks() {
+      return this.tasks.length;
     },
-    obtenerTareasTotales() {
-      return this.obtenerTareasvigentes + this.contadorEliminadas;
+    getTotalTasks() {
+      return this.getCurrentTasks + this.tasksDeleted;
     },
   },
   methods: {
-    ...mapActions(["cargarTareas"]),
-    ...mapMutations(["setNotificar"]),
+    ...mapActions(["getTasks"]),
+    ...mapMutations(["setNotify"]),
   },
 };
 </script>

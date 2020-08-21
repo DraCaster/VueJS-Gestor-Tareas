@@ -1,59 +1,60 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    tareas: [],
-    filtro: '',
-    cargando: false,
-    notificar: null,
-    contadorEliminadas: 0
+    tasks: [],
+    filter: "",
+    loading: false,
+    notify: null,
+    tasksDeleted: 0,
   },
   mutations: {
-    setTareas(state,tareas){
-      state.tareas = tareas
+    setTasks(state, tasks) {
+      state.tasks = tasks;
     },
-    agregarTarea(state,tarea){
-      state.tareas.push(tarea)
-      state.notificar = 'agregar'
+    setTask(state, task) {
+      state.tasks.push(task);
+      state.notify = "add";
     },
-    removerTarea(state,index){
-      state.tareas.splice(index,1)
-      state.contadorEliminadas++
-      state.notificar = 'eliminar'
+    removeTask(state, index) {
+      state.tasks.splice(index, 1);
+      state.tasksDeleted++;
+      state.notify = "delete";
     },
-    modificarTarea(state,{index,tarea}){
-      Vue.set(state.tareas,index,tarea)
-      state.notificar = 'editar'
+    updateTask(state, { index, task }) {
+      Vue.set(state.tasks, index, task);
+      state.notify = "update";
     },
-    setFiltro(state,value){
-      state.filtro = value
+    setFilter(state, value) {
+      state.filter = value;
     },
-    setCargando(state,value){
-      state.cargando = value
+    setLoading(state, value) {
+      state.loading = value;
     },
-    setNotificar(state, val) {
-      state.notificar = val
+    setNotify(state, val) {
+      state.notify = val;
     },
   },
   actions: {
-    cargarTareas({commit}){
-      commit('setCargando',true)
-      setTimeout(()=>{
-        commit('setTareas',['Comprar en el super', 'Acariciar a michi', 'Peinar a michi'])
-        commit('setCargando',false)
-
-      },1500)
-    }
-  },
-  getters:{
-    obtenerTareasFiltradas(state) {
-      let reg = new RegExp(state.filtro, 'i')
-      return state.tareas.filter(tarea => reg.test(tarea))
+    getTasks({ commit }) {
+      commit("setLoading", true);
+      setTimeout(() => {
+        commit("setTasks", [
+          "Comprar en el super",
+          "Acariciar a michi",
+          "Peinar a michi",
+        ]);
+        commit("setLoading", false);
+      }, 1500);
     },
   },
-  modules: {
+  getters: {
+    getTasksFilter(state) {
+      let reg = new RegExp(state.filter, "i");
+      return state.tasks.filter((task) => reg.test(task));
+    }
   }
-})
+});
