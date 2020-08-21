@@ -8,7 +8,7 @@
     import {mapMutations} from 'vuex'
     let types = ['eliminar', 'editar', 'agregar']
     export default {
-        name: "TareasNotificador",
+        name: "SnackbarTask",
         props: {
             notificar: {type: String, validator: value => types.includes(value)}
         },

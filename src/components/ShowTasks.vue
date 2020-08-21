@@ -35,7 +35,7 @@
     import {mapGetters, mapMutations} from 'vuex'
 
     export default {
-        name: 'TareasListar',
+        name: 'ShowTasks',
         data(){
             return {
                 editando: null,

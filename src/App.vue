@@ -1,5 +1,4 @@
 <template>
-
     <v-app>
         <v-app-bar app color="amber lighten-1" dark>
             <v-toolbar-title class="title">Gestor de Tareas</v-toolbar-title>
@@ -10,23 +9,18 @@
         </v-app-bar>
     
         <v-content class="grey lighten-3">
-            <tareas></tareas>
+            <Tasks/>
         </v-content>
     </v-app>
 
 </template>
 
 <script>
-    import Tareas from "./components/Tareas";
+    import Tasks from "./components/Tasks";
     
     export default {
         name: 'App',
-        components: {Tareas},
-       
+        components: {Tasks},
     }
     
 </script>
-
-<style>
-
-</style>

@@ -8,7 +8,7 @@
 <script>
     import {mapMutations} from 'vuex'
     export default {
-        name: "TareasFiltrar",
+        name: "FilterTask",
 
         computed:{
             filtro: {

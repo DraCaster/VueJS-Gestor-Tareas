@@ -8,7 +8,7 @@
 <script>
     import {mapMutations} from 'vuex'
     export default {
-        name: "TareasNueva",
+        name: "NewTask",
         data(){
             return {
                 tarea:''
